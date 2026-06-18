@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ValidationJob {
+  id          String   @id @default(cuid())
+  filename    String
+  status      JobStatus @default(IN_PROGRESS)
+  totalRows   Int      @default(0)
+  passedRows  Int      @default(0)
+  errorRows   Int      @default(0)
+  cleanedRows Int      @default(0)
+  accuracy    Float    @default(0)
+  region      String   @default("in")
+  dateSchema  String   @default("iso")
+  chunkSize   Int      @default(1000)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum JobStatus {
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+}

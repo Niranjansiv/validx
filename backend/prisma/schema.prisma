@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UploadSession {
+  id            String   @id @default(uuid())
+  filename      String
+  upload_date   DateTime @default(now())
+  total_rows    Int?
+  valid_rows    Int?
+  invalid_rows  Int?
+  error_count   Int?
+  status        String?
+  chunk_size    Int?
+  target_region String?
+  date_schema   String?
+  results       ValidationResult[]
+}
+
+model ValidationResult {
+  id                String        @id @default(uuid())
+  session_id        String
+  row_number        Int?
+  row_data          Json?
+  validation_status String?
+  errors            String?
+  session           UploadSession @relation(fields: [session_id], references: [id])
+}

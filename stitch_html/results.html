@@ -1,0 +1,484 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>ValidX - Validation Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#004f54",
+                        "surface-bright": "#39383e",
+                        "tertiary": "#dbffd7",
+                        "tertiary-fixed": "#6bff83",
+                        "primary-container": "#00f0ff",
+                        "on-secondary-fixed": "#320047",
+                        "on-background": "#e4e1e9",
+                        "on-error": "#690005",
+                        "surface-container-low": "#1b1b20",
+                        "on-primary": "#00363a",
+                        "surface-container": "#1f1f25",
+                        "surface-container-lowest": "#0e0e13",
+                        "inverse-on-surface": "#303036",
+                        "on-surface": "#e4e1e9",
+                        "outline-variant": "#3b494b",
+                        "on-error-container": "#ffdad6",
+                        "surface-dim": "#131318",
+                        "secondary-fixed-dim": "#ecb2ff",
+                        "on-primary-fixed": "#002022",
+                        "on-surface-variant": "#b9cacb",
+                        "outline": "#849495",
+                        "surface-variant": "#35343a",
+                        "primary-fixed": "#7df4ff",
+                        "surface-tint": "#00dbe9",
+                        "on-tertiary-fixed-variant": "#00531b",
+                        "secondary": "#ecb2ff",
+                        "surface-container-highest": "#35343a",
+                        "inverse-primary": "#006970",
+                        "on-tertiary-container": "#006e27",
+                        "surface-container-high": "#2a292f",
+                        "on-tertiary-fixed": "#002107",
+                        "secondary-container": "#cf5cff",
+                        "primary": "#dbfcff",
+                        "error": "#ffb4ab",
+                        "surface": "#131318",
+                        "tertiary-container": "#00fa64",
+                        "on-secondary-container": "#480063",
+                        "on-secondary": "#520071",
+                        "inverse-surface": "#e4e1e9",
+                        "secondary-fixed": "#f8d8ff",
+                        "on-primary-container": "#006970",
+                        "primary-fixed-dim": "#00dbe9",
+                        "error-container": "#93000a",
+                        "tertiary-fixed-dim": "#00e55b",
+                        "on-secondary-fixed-variant": "#74009f",
+                        "background": "#131318",
+                        "on-tertiary": "#003911"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "margin": "32px",
+                        "stack-lg": "24px",
+                        "unit": "4px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "stack-xs": "4px",
+                        "stack-xl": "48px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "code-sm": ["JetBrains Mono"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "code-sm": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 219, 233, 0.1);
+        }
+        
+        /* Stats Glows */
+        .stat-cyan { box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.05), 0 0 20px rgba(0, 240, 255, 0.1); border-color: rgba(0, 240, 255, 0.2); }
+        .stat-green { box-shadow: inset 0 0 20px rgba(0, 250, 100, 0.05), 0 0 20px rgba(0, 250, 100, 0.1); border-color: rgba(0, 250, 100, 0.2); }
+        .stat-red { box-shadow: inset 0 0 20px rgba(255, 180, 171, 0.05), 0 0 20px rgba(255, 180, 171, 0.1); border-color: rgba(255, 180, 171, 0.2); }
+        .stat-purple { box-shadow: inset 0 0 20px rgba(236, 178, 255, 0.05), 0 0 20px rgba(236, 178, 255, 0.1); border-color: rgba(236, 178, 255, 0.2); }
+
+        /* Button Glows */
+        .btn-glow-green { background: rgba(0, 250, 100, 0.1); border: 1px solid #00fa64; color: #dbffd7; transition: all 0.3s ease; }
+        .btn-glow-green:hover { box-shadow: 0 0 20px rgba(0, 250, 100, 0.4); background: rgba(0, 250, 100, 0.2); }
+        
+        .btn-glow-red { background: rgba(255, 180, 171, 0.1); border: 1px solid #ffb4ab; color: #ffdad6; transition: all 0.3s ease; }
+        .btn-glow-red:hover { box-shadow: 0 0 20px rgba(255, 180, 171, 0.4); background: rgba(255, 180, 171, 0.2); }
+        
+        .btn-glow-cyan { background: linear-gradient(135deg, #00f0ff 0%, #cf5cff 100%); color: #00363a; transition: all 0.3s ease; border: none; }
+        .btn-glow-cyan:hover { box-shadow: 0 0 25px rgba(0, 240, 255, 0.5); opacity: 0.9; }
+
+        /* Table Styles */
+        .data-row { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s; }
+        .data-row:hover { background: rgba(255,255,255,0.02); }
+        .row-pass { border-left: 2px solid #00e55b; }
+        .row-error { border-left: 2px solid #ffb4ab; }
+        
+        .tab-active { background: rgba(0, 219, 233, 0.1); border-bottom: 2px solid #00dbe9; color: #00dbe9; }
+
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 229, 91, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(0, 229, 91, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 229, 91, 0); }
+        }
+        .pulse-dot-red {
+            animation: pulse-red 2s infinite;
+        }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 180, 171, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(255, 180, 171, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 180, 171, 0); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary/30 selection:text-primary">
+<!-- Background Shader -->
+<div class="fixed inset-0 z-0 pointer-events-none opacity-30">
+<!-- STITCH_SHADER_START:ANIMATION_2 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+float random(vec2 st) {
+    return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+}
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+    vec2 center = uv - 0.5;
+    center.x *= u_resolution.x / u_resolution.y;
+
+    // Deep dark background
+    vec3 color = vec3(0.047, 0.047, 0.063); // #0c0c10 - deep dark but not black
+
+    // Atmospheric glows
+    float glow1 = 0.5 / length(center - vec2(sin(u_time * 0.5) * 0.5, cos(u_time * 0.3) * 0.3));
+    float glow2 = 0.4 / length(center - vec2(cos(u_time * 0.4) * 0.4, sin(u_time * 0.6) * 0.4));
+    
+    color += vec3(0.0, 0.94, 1.0) * glow1 * 0.05; // Cyan glow
+    color += vec3(0.6, 0.0, 1.0) * glow2 * 0.05; // Purple glow
+
+    // Floating particles
+    for(int i = 0; i < 40; i++) {
+        float f_i = float(i);
+        vec2 p = vec2(random(vec2(f_i, 123.0)), random(vec2(f_i, 456.0)));
+        p.y = fract(p.y - u_time * 0.05);
+        
+        float dist = length(uv - p);
+        float particle = 0.001 / dist;
+        particle *= smoothstep(0.1, 0.0, dist);
+        
+        color += vec3(0.5, 0.8, 1.0) * particle * random(vec2(f_i));
+    }
+
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+</div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-[20px] border-b border-primary/20 shadow-[0px_0px_20px_rgba(0,240,255,0.1)] transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center max-w-container-max mx-auto px-margin h-20">
+<div class="font-display-lg text-display-lg text-primary drop-shadow-[0_0_10px_rgba(0,219,233,0.8)]">ValidX</div>
+<div class="hidden md:flex gap-stack-lg font-body-md text-body-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 hover:shadow-[0_0_15px_rgba(0,219,233,0.4)] px-3 py-2 rounded" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 hover:shadow-[0_0_15px_rgba(0,219,233,0.4)] px-3 py-2 rounded" href="#">Upload</a>
+<a class="text-primary border-b-2 border-primary pb-1 px-3 py-2 hover:bg-primary/10 hover:shadow-[0_0_15px_rgba(0,219,233,0.4)] rounded-t" href="#">History</a>
+</div>
+<button class="bg-primary-container text-on-primary-container font-code-sm text-code-sm px-6 py-2 rounded-lg hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all">Get Started</button>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-grow z-10 pt-32 pb-margin px-margin max-w-container-max mx-auto w-full flex flex-col gap-stack-xl">
+<!-- Header & Actions -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-stack-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-stack-xs drop-shadow-[0_0_8px_rgba(0,219,233,0.3)]">Validation Report</h1>
+<p class="text-on-surface-variant font-code-sm text-code-sm">Dataset: customer_data_v2.csv • Completed: Just now</p>
+</div>
+<div class="flex flex-wrap gap-stack-sm">
+<button class="btn-glow-green font-code-sm text-code-sm px-4 py-2 rounded flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span> Download Clean CSV
+                </button>
+<button class="btn-glow-red font-code-sm text-code-sm px-4 py-2 rounded flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">error</span> Download Errors
+                </button>
+<button class="btn-glow-cyan font-code-sm text-code-sm px-6 py-2 rounded flex items-center gap-2 font-bold">
+<span class="material-symbols-outlined text-[18px]">assessment</span> Full Report
+                </button>
+</div>
+</header>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter">
+<!-- Total Rows -->
+<div class="glass-panel stat-cyan p-stack-lg rounded-xl flex flex-col gap-stack-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-primary/10 transition-all"></div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">Total Rows</span>
+<span class="material-symbols-outlined text-primary-container">table_rows</span>
+</div>
+<div class="font-display-lg text-display-lg text-primary-fixed-dim" id="stat-total">14,208</div>
+</div>
+<!-- Validated -->
+<div class="glass-panel stat-green p-stack-lg rounded-xl flex flex-col gap-stack-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary-container/5 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-tertiary-container/10 transition-all"></div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">Passed Validation</span>
+<span class="material-symbols-outlined text-tertiary-fixed-dim">check_circle</span>
+</div>
+<div class="font-display-lg text-display-lg text-tertiary-fixed-dim flex items-baseline gap-2">
+<span id="stat-valid" class="">12,840</span>
+<span class="font-code-sm text-code-sm text-tertiary-fixed-dim opacity-70">90.3%</span>
+</div>
+</div>
+<!-- Errors -->
+<div class="glass-panel stat-red p-stack-lg rounded-xl flex flex-col gap-stack-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-error/5 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-error/10 transition-all"></div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">Critical Errors</span>
+<span class="material-symbols-outlined text-error">warning</span>
+</div>
+<div class="font-display-lg text-display-lg text-error flex items-baseline gap-2">
+<span id="stat-error" class="">1,024</span>
+<span class="font-code-sm text-code-sm text-error opacity-70">7.2%</span>
+</div>
+</div>
+<!-- Cleaned -->
+<div class="glass-panel stat-purple p-stack-lg rounded-xl flex flex-col gap-stack-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-secondary/10 transition-all"></div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">Auto-Cleaned</span>
+<span class="material-symbols-outlined text-secondary">auto_fix_high</span>
+</div>
+<div class="font-display-lg text-display-lg text-secondary flex items-baseline gap-2">
+<span id="stat-clean" class="">344</span>
+<span class="font-code-sm text-code-sm text-secondary opacity-70">2.5%</span>
+</div>
+</div>
+</section>
+<!-- Data Explorer -->
+<section class="glass-panel rounded-xl flex flex-col flex-grow">
+<!-- Filter Bar -->
+<div class="border-b border-white/5 flex gap-stack-lg px-stack-lg pt-stack-sm">
+<button class="tab-active font-label-caps text-label-caps uppercase px-4 py-3 transition-colors">All Records</button>
+<button class="text-on-surface-variant hover:text-primary font-label-caps text-label-caps uppercase px-4 py-3 transition-colors border-b-2 border-transparent">Validated</button>
+<button class="text-on-surface-variant hover:text-error font-label-caps text-label-caps uppercase px-4 py-3 transition-colors border-b-2 border-transparent">Errors</button>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto p-stack-md">
+<table class="w-full text-left border-collapse font-code-sm text-code-sm">
+<thead>
+<tr class="text-on-surface-variant border-b border-white/10 uppercase font-label-caps text-label-caps">
+<th class="py-3 pl-4 pr-2 font-normal">Status</th>
+<th class="py-3 px-2 font-normal">Row ID</th>
+<th class="py-3 px-2 font-normal">Email</th>
+<th class="py-3 px-2 font-normal">Phone</th>
+<th class="py-3 px-2 font-normal">Revenue</th>
+<th class="py-3 px-2 font-normal text-right">Details</th>
+</tr>
+</thead>
+<tbody class="text-on-surface">
+<tr class="data-row row-pass group">
+<td class="py-3 pl-4 pr-2">
+<div class="w-2 h-2 rounded-full bg-tertiary-fixed-dim pulse-dot ml-2"></div>
+</td>
+<td class="py-3 px-2 text-on-surface-variant">#14208</td>
+<td class="py-3 px-2">alex.m@example.com</td>
+<td class="py-3 px-2">+1 (555) 019-2834</td>
+<td class="py-3 px-2">$12,450.00</td>
+<td class="py-3 px-2 text-right">
+<button class="text-on-surface-variant group-hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</td>
+</tr>
+<tr class="data-row row-error bg-error/5">
+<td class="py-3 pl-4 pr-2">
+<div class="w-2 h-2 rounded-full bg-error pulse-dot-red ml-2"></div>
+</td>
+<td class="py-3 px-2 text-on-surface-variant">#14207</td>
+<td class="py-3 px-2 text-error line-through decoration-error/50">invalid_email@.com</td>
+<td class="py-3 px-2">+44 20 7946 0958</td>
+<td class="py-3 px-2">$3,200.50</td>
+<td class="py-3 px-2 text-right">
+<button class="text-error hover:text-on-error-container transition-colors"><span class="material-symbols-outlined text-[18px]">info</span></button>
+</td>
+</tr>
+<tr class="data-row row-pass group">
+<td class="py-3 pl-4 pr-2">
+<div class="w-2 h-2 rounded-full bg-tertiary-fixed-dim pulse-dot ml-2"></div>
+</td>
+<td class="py-3 px-2 text-on-surface-variant">#14206</td>
+<td class="py-3 px-2">s.chen@techcorp.io</td>
+<td class="py-3 px-2">+1 (555) 982-1102</td>
+<td class="py-3 px-2">$45,000.00</td>
+<td class="py-3 px-2 text-right">
+<button class="text-on-surface-variant group-hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</td>
+</tr>
+<tr class="data-row row-pass group">
+<td class="py-3 pl-4 pr-2">
+<span class="material-symbols-outlined text-secondary text-[16px] ml-1">auto_fix_high</span>
+</td>
+<td class="py-3 px-2 text-on-surface-variant">#14205</td>
+<td class="py-3 px-2">jdoe@gmail.com</td>
+<td class="py-3 px-2 text-secondary border-b border-secondary/30 border-dashed" title="Formatted from: 555-1234567">+1 (555) 123-4567</td>
+<td class="py-3 px-2">$850.00</td>
+<td class="py-3 px-2 text-right">
+<button class="text-on-surface-variant group-hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</td>
+</tr>
+<tr class="data-row row-error bg-error/5">
+<td class="py-3 pl-4 pr-2">
+<div class="w-2 h-2 rounded-full bg-error pulse-dot-red ml-2"></div>
+</td>
+<td class="py-3 px-2 text-on-surface-variant">#14204</td>
+<td class="py-3 px-2">admin@system.local</td>
+<td class="py-3 px-2">NULL</td>
+<td class="py-3 px-2 text-error font-bold">-999.00</td>
+<td class="py-3 px-2 text-right">
+<button class="text-error hover:text-on-error-container transition-colors"><span class="material-symbols-outlined text-[18px]">info</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-stack-md border-t border-white/5 flex justify-between items-center text-on-surface-variant font-code-sm text-code-sm">
+<span class="">Showing 1-5 of 14,208</span>
+<div class="flex gap-2">
+<button class="px-2 py-1 rounded hover:bg-white/5 disabled:opacity-50" disabled=""><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<button class="px-2 py-1 rounded hover:bg-white/5"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-xl bg-surface-container-lowest border-t border-outline-variant/30 mt-auto z-10 relative">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin max-w-container-max mx-auto gap-stack-lg">
+<div class="font-headline-lg text-headline-lg text-primary opacity-80 hover:opacity-100 transition-all">ValidX</div>
+<div class="flex flex-wrap justify-center gap-stack-md font-label-caps text-label-caps">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">API Docs</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+<div class="text-on-surface-variant font-label-caps text-label-caps">© 2024 ValidX. All rights reserved.</div>
+</div>
+</footer>
+<script>
+        // Simple counter animation simulation
+        function animateValue(id, start, end, duration) {
+            if (start === end) return;
+            var range = end - start;
+            var current = start;
+            var increment = end > start? 1 : -1;
+            var stepTime = Math.abs(Math.floor(duration / range));
+            var obj = document.getElementById(id);
+            var timer = setInterval(function() {
+                current += increment;
+                // Add commas
+                obj.innerHTML = current.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        // Slight delay to make it feel like data loading
+        setTimeout(() => {
+            // Animate only the last few numbers for effect rather than full range to avoid long animations
+            animateValue("stat-total", 14000, 14208, 1000);
+            animateValue("stat-valid", 12700, 12840, 1000);
+            animateValue("stat-error", 950, 1024, 1000);
+            animateValue("stat-clean", 300, 344, 1000);
+        }, 500);
+    </script>
+</body></html>
