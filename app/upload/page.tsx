@@ -130,6 +130,8 @@ export default function UploadPage() {
   const handleStartValidation = () => {
     if (!file) return;
 
+    console.log("[ValidX] NEXT_PUBLIC_API_URL =", process.env.NEXT_PUBLIC_API_URL);
+
     const settings = { targetRegion: region, dateSchema, chunkSize };
 
     // Store the file + kick off the API call immediately so the network
