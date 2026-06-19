@@ -83,19 +83,9 @@ export default function HistoryPage() {
   return (
     <div className="relative min-h-screen flex flex-col overflow-x-hidden" style={{ backgroundColor: "#0A0A0F" }}>
 
-      {/* Shader */}
-      <div className="absolute inset-0 w-full h-full -z-10 opacity-30">
+      {/* Shader — identical wrapper to Landing page */}
+      <div className="fixed inset-0 w-full h-full z-0 opacity-40 pointer-events-none">
         <ShaderBackground className="absolute inset-0 w-full h-full" />
-      </div>
-
-      {/* Radial glow blobs — same pattern as other pages */}
-      <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] rounded-full blur-[160px]"
-             style={{ background: "rgba(0, 240, 255, 0.04)" }} />
-        <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] rounded-full blur-[140px]"
-             style={{ background: "rgba(207, 92, 255, 0.04)" }} />
-        <div className="absolute top-2/3 left-1/5 w-[350px] h-[350px] rounded-full blur-[120px]"
-             style={{ background: "rgba(107, 255, 131, 0.03)" }} />
       </div>
 
       <Navbar />
